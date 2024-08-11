@@ -1,0 +1,47 @@
+//brute force - O(n^2)
+class Solution {
+  public:
+    int findPair(int n, int x, vector<int> &arr) {
+        sort(arr.begin(),arr.end());
+        for(int i=0;i<n;i++){
+            for(int j=i+1;j<n;j++){
+                if(abs(arr[j]-arr[i])==x){
+                    return 1;
+                }
+            }
+        }
+        return -1;
+    }
+};
+
+//using binary search- O(n*log(n))
+class Solution {
+  public:
+    bool binarySearch(vector<int>& arr,int c,int s,int e)
+    {
+        while(s<=e){
+            int mid=s+(e-s)/2;
+            if(arr[mid]==c){
+                return true;
+            }
+            else if(arr[mid]<c){
+                s=mid+1;
+            }
+            else{
+                e=mid-1;
+            }
+        }
+        return false;
+    }
+    int findPair(int n, int x, vector<int> &arr) {
+        sort(arr.begin(),arr.end());
+        for(int i=0;i<n;i++){
+            int c=x+arr[i];
+            bool ans=binarySearch(arr,c,i+1,n-1);
+            if(ans){
+                return 1;
+            }
+        }
+        return -1;
+    }
+};
