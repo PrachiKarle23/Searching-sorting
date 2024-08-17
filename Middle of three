@@ -1,0 +1,13 @@
+class Solution{
+  public:
+    int middle(int A, int B, int C){
+        vector<int>a;
+        a.push_back(A);
+        a.push_back(B);
+        a.push_back(C);
+        sort(a.begin(),a.end());
+        int s=0,e=a.size()-1;
+        int mid=s+(e-s)/2;
+        return a[mid];
+    }
+};
