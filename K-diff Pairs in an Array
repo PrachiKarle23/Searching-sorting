@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int findPairs(vector<int>& nums, int k) {
+        unordered_map<int,int>mp;
+        sort(nums.begin(),nums.end());
+       
+        for(int i=0;i<nums.size();i++)
+        {
+            mp[nums[i]]=i;
+        }
+        int cnt=0;
+        set<vector<int>>ans;
+        for(int i=0;i<nums.size();i++)
+        {
+            int comp=nums[i]+k;
+            if(mp.find(comp)!=mp.end() && mp[comp]!=i){
+                ans.insert({nums[i],nums[mp[comp]]});
+            }
+        }
+        return ans.size();
+    }
+};
