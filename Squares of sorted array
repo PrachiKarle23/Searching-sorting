@@ -1,0 +1,93 @@
+class Solution {
+public:
+
+    void merge(vector<int>& a,int s,int e)
+    {
+        int mid=s+(e-s)/2;
+        int len1=mid-s+1;
+        int len2=e-mid;
+
+        int arr1[len1],arr2[len2];
+        int k=s;
+        for(int i=0;i<len1;i++)
+        {
+            arr1[i]=a[k++];
+        }
+        k=mid+1;
+        for(int i=0;i<len2;i++)
+        {
+           arr2[i]=a[k++];
+        }
+
+        k=s;
+        int index1=0,index2=0;
+        while(index1<len1 && index2<len2)
+        {
+            if(arr1[index1]>arr2[index2])
+            {
+               a[k++]=arr2[index2++];
+            }
+            else{
+                a[k++]=arr1[index1++];
+            }
+        }
+
+        while(index1<len1)
+        {
+            a[k++]=arr1[index1++];
+        }
+
+        while(index2<len2)
+        {
+            a[k++]=arr2[index2++];
+        }
+    }
+    void mergeSort(vector<int>& a,int s,int e)
+    {
+        if(s>=e)
+        {
+            return;
+        }
+        int mid=s+(e-s)/2;
+        mergeSort(a,s,mid);
+        mergeSort(a,mid+1,e);
+
+        merge(a,s,e);
+    }
+    vector<int> sortedSquares(vector<int>& nums) {
+        vector<int>a;
+
+        for(int i=0;i<nums.size();i++)
+        {
+            a.push_back(nums[i]*nums[i]);
+        }
+        
+        // for(int i=0;i<a.size()-1;i++)
+        // {
+        //     for(int j=i+1;j<a.size();j++)
+        //     {
+        //         if(a[i]>a[j]){
+        //             swap(a[i],a[j]);
+        //         }
+        //     }
+        // }
+
+        // for(int i=0;i<a.size();i++)
+        // {
+        //    int mini=i;
+        //    for(int j=i+1;j<a.size();j++)
+        //    {
+        //       if(a[mini]>a[j])
+        //       {
+        //         mini=j;
+        //       }
+        //    }
+        //    swap(a[mini],a[i]);
+        // }
+
+        // sort(a.begin(),a.end());
+
+        mergeSort(a,0,a.size()-1);
+        return a;
+    }
+};
